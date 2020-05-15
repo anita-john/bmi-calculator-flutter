@@ -28,32 +28,29 @@ class _InputPageState extends State<InputPage> {
         children: <Widget>[
           Expanded(child: Row (
             children: <Widget>[
-              Expanded(child: GestureDetector(
-                onTap:(){
+              Expanded(child: ReusableCard(
+                onPress: (){
                   setState(() {
                     selectedGender = Gender.male;
                   });
-    },
-                child: ReusableCard(
-                  colour:selectedGender == Gender.male ? activeCardColour: inactiveCardColour,
-                  cardChild: IconContent(
-                    icon: FontAwesomeIcons.mars,
-                    label: 'MALE',
-                  ),
+                },
+                colour:selectedGender == Gender.male ? activeCardColour: inactiveCardColour,
+                cardChild: IconContent(
+                  icon: FontAwesomeIcons.mars,
+                  label: 'MALE',
                 ),
               ),
               ),
-              Expanded(child: GestureDetector(
-                onTap: (){
+              Expanded(child: ReusableCard(
+                onPress: (){
                   setState(() {
-                   selectedGender =Gender.female;
+                    selectedGender = Gender.female;
                   });
                 },
-                child: ReusableCard(colour: selectedGender == Gender.female ? activeCardColour: inactiveCardColour,
-                  cardChild: IconContent(
-                    icon: FontAwesomeIcons.venus,
-                    label:'FEMALE',
-                  ),
+                colour: selectedGender == Gender.female ? activeCardColour: inactiveCardColour,
+                cardChild: IconContent(
+                  icon: FontAwesomeIcons.venus,
+                  label:'FEMALE',
                 ),
               ),
               ),
@@ -119,18 +116,22 @@ class IconContent extends StatelessWidget {
 
 
 class ReusableCard extends StatelessWidget {
-  ReusableCard({@required this.colour, this.cardChild });
+  ReusableCard({@required this.colour, this.cardChild, this.onPress });
   final Color colour;
   final Widget cardChild;
+  final Function onPress;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: cardChild,
-      margin: EdgeInsets.all(15.0),
-      decoration: BoxDecoration(
-        color: colour,
-        borderRadius: BorderRadius.circular(10.0),
+    return GestureDetector(
+      onTap: onPress,
+      child: Container(
+        child: cardChild,
+        margin: EdgeInsets.all(15.0),
+        decoration: BoxDecoration(
+          color: colour,
+          borderRadius: BorderRadius.circular(10.0),
+        ),
       ),
     );
   }
