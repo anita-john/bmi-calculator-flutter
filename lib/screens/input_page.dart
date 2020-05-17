@@ -1,10 +1,14 @@
 
 
-import 'package:bmi_calculator/results_page.dart';
+import 'package:bmi_calculator/screens/results_page.dart';
 import'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'constants.dart';
+import '../constants.dart';
 import 'results_page.dart';
+import '../components/bottom_button.dart';
+import '../components/round_icon_button.dart';
+import '../components/icon_content.dart';
+import '../components/reusable_card.dart';
 
 
 
@@ -176,19 +180,10 @@ class _InputPageState extends State<InputPage> {
     ],
     ),
           ),
-          GestureDetector(
-            onTap: () {
-              Navigator.push(context, MaterialPageRoute( builder:(context) => ResultsPage(),
-              ));
-            },
-            child: Container(
-              child: Text('CALCULATE'),
-              color: kBottomCardColour,
-              margin: EdgeInsets.only(top: 10.0),
-              width: double.infinity,
-              height: kBottomContainerHeight,
-            ),
-          ),
+          BottomButton(buttonTitle:'CALCULATE', onTap: (){
+            Navigator.push(
+              context, MaterialPageRoute( builder: (context) => ResultsPage()));
+          }, ),
         ],
       ),
       );
@@ -197,71 +192,10 @@ class _InputPageState extends State<InputPage> {
 }
 
 
-class IconContent extends StatelessWidget {
-  IconContent({this.icon, this.label});
-  final IconData icon;
-  final String label;
 
 
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Icon(
-          icon,
-          size: 80.0,
-        ),
-        SizedBox(
-          height: 15.0,
-        ),
-        Text(label,
-          style: kLabelTextStyle,
-        ),
-      ],
-    );
-  }
-}
 
 
-class ReusableCard extends StatelessWidget {
-  ReusableCard({@required this.colour, this.cardChild, this.onPress });
-  final Color colour;
-  final Widget cardChild;
-  final Function onPress;
 
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onPress,
-      child: Container(
-        child: cardChild,
-        margin: EdgeInsets.all(15.0),
-        decoration: BoxDecoration(
-          color: colour,
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-      ),
-    );
-  }
-}
-class RoundIconButton extends StatelessWidget {
-  RoundIconButton({@required this.icon, @ required this.onPressed});
-  final IconData icon;
-  final Function onPressed;
-  @override
-  Widget build(BuildContext context) {
-    return RawMaterialButton(
-      child: Icon(icon),
-      onPressed:onPressed,
-      elevation: 6.0,
-      constraints: BoxConstraints.tightFor(
-        width: 56.0,
-        height: 56.0,
-      ),
-      shape: CircleBorder(),
-      fillColor: Color(0xFF4C4F5E),
-    );
-  }
-}
+
 
